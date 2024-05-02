@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  username     String     @unique
+  passwordHash String
+  credits      Float      @default(0)
+  admin        Boolean    @default(false)
+  purchases    Purchase[]
+  blackjackGames BlackjackGame[]
+}
+
+model Book {
+  id          String     @id @default(uuid())
+  title       String
+  description String @db.VarChar(500)
+  price       Float
+  purchases   Purchase[]
+  imageUrl    String
+  epubUrl      String
+}
+
+model Purchase {
+  id       String   @id @default(uuid())
+  userId   String   @map("user_id")
+  bookId   String   @map("book_id")
+  date     DateTime @default(now())
+  quantity Int
+  book     Book     @relation(fields: [bookId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, bookId])
+  @@index([bookId], map: "Purchase_book_id_fkey")
+}
+
+model BlackjackGame {
+  id           String    @id @default(uuid())
+  playerCards  String
+  dealerCards  String
+  deck         Json    // New field to store the current deck as a JSON string
+  playerTotal  Int
+  dealerTotal  Int
+  bet          Float
+  gameOver     Boolean   @default(false)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+}
+
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.LongText
+  expiresAt DateTime
+}
