@@ -10,6 +10,8 @@ const { Server } = require('socket.io');
 const sharedsession = require("express-socket.io-session");
 const { setupBlackjackGame } = require('./socketCategories/blackjack');
 const cors = require('cors');
+const { setupTetrisGame } = require('./socketCategories/tetris');
+const setupStatic = require('./serveStatic');
 
 require('./auth/passportConfig')(passport); // Passport configuration
 require('dotenv').config()
@@ -18,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',  // Adjust this to match your front-end URL
+    origin: 'https://ebook.cmcdev.net',  // Adjust this to match your front-end URL
     methods: ['GET', 'POST'],
     credentials: true,
     allowedHeaders: ['CSRF-Token']
@@ -45,7 +47,7 @@ const sessionMiddleware = expressSession({
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000', // Adjust this to match your client URL in production
+  origin: 'https://ebook.cmcdev.net', // Adjust this to match your client URL in production
   methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
   allowedHeaders: ['Content-Type', 'CSRF-Token'],
   credentials: true,
@@ -85,17 +87,17 @@ app.use((req, res, next) => {
 
 // Socket.IO event handling
 io.on('connection', (socket) => {
-  console.log('A user connected');
-  socket.on('disconnect', () => {
-      console.log('User disconnected');
+  //console.log('A user connected');
+  socket.on('bj-disconnect', () => {
+      //console.log('User disconnected');
   });
 
   // Example event
-  socket.on('example-event', (data) => {
+  socket.on('bj-example-event', (data) => {
       if (socket.handshake.session.passport && socket.handshake.session.passport.user) {
-          console.log(`Received event from authenticated user: ${data}`);
+          //console.log(`Received event from authenticated user: ${data}`);
       } else {
-          socket.emit('auth_error', 'User is not authenticated');
+          socket.emit('bj-auth_error', 'User is not authenticated');
       }
   });
 });
@@ -106,5 +108,10 @@ app.use('/api/balance', require('./routes/balanceRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
 
 setupBlackjackGame(io);
+setupTetrisGame(io);
+
+if(process.env.NODE_ENV === 'production') {
+    setupStatic(app)
+}
 
 module.exports = { app, server };

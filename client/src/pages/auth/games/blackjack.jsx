@@ -21,7 +21,7 @@ const BlackjackGame = ({ socket, user }) => {
 
     useEffect(() => {
         if(socket !== null) {
-            socket.on('game-started', data => {
+            socket.on('bj-game-started', data => {
                 console.log('Game started', data)
                 setGameActive(true);
                 setLoading(false);
@@ -32,14 +32,14 @@ const BlackjackGame = ({ socket, user }) => {
                 setMessage("Game started! Your move!");
             });
     
-            socket.on('game-updated', data => {
+            socket.on('bj-game-updated', data => {
                 console.log('Game updated', data)
                 setLoading(false);
                 setPlayerCards(data.playerCards || []);
                 setPlayerTotal(data.playerTotal || 0);
             });
 
-            socket.on('game-ended', data => {
+            socket.on('bj-game-ended', data => {
                 console.log('Game ended', data)
                 setLoading(true);
                 setDealerCards(data.dealerCards);
@@ -57,7 +57,7 @@ const BlackjackGame = ({ socket, user }) => {
                 }, 3000)
             });
     
-            socket.on('game-ended-plr', data => {
+            socket.on('bj-game-ended-plr', data => {
                 console.log('Game ended', data)
                 setLoading(true);
                 setPlayerCards(data.playerCards);
@@ -74,7 +74,7 @@ const BlackjackGame = ({ socket, user }) => {
                 }, 3000)
             });
             
-            socket.on('error', data => {
+            socket.on('bj-error', data => {
                 console.log('got error', data)
                 setMessage(data);
                 setLoading(false);
@@ -82,10 +82,10 @@ const BlackjackGame = ({ socket, user }) => {
             });
     
             return () => {
-                socket.off('game-started');
-                socket.off('game-updated');
-                socket.off('game-ended');
-                socket.off('error');
+                socket.off('bj-game-started');
+                socket.off('bj-game-updated');
+                socket.off('bj-game-ended');
+                socket.off('bj-error');
             };
         }
     }, [socket]);
@@ -108,19 +108,19 @@ const BlackjackGame = ({ socket, user }) => {
             setGameActive(false);
             return;
         }
-        socket.emit('start-game', { bet });
+        socket.emit('bj-start-game', { bet });
     };
 
     const handleHit = () => {
         if(loading) return;
         setLoading(true);
-        socket.emit('player-action', { action: 'hit' });
+        socket.emit('bj-player-action', { action: 'hit' });
     };
 
     const handleStand = () => {
         if(loading) return;
         setLoading(true);
-        socket.emit('player-action', { action: 'stand' });
+        socket.emit('bj-player-action', { action: 'stand' });
     };
 
     const handleBetChange = (event) => {
@@ -194,14 +194,14 @@ const BlackjackGame = ({ socket, user }) => {
                         <button disabled={loading || !playerCards.length} onClick={handleStand} className="disabled:opacity-50 cursor-pointer min-w-full bg-zinc-900 rounded-lg text-white p-2 border-[4px] border-zinc-900 hover:bg-transparent hover:text-zinc-900 duration-200">Stand</button>
                     </div>
                 </div>
-                <p className="text-center mt-5">Balance: {wallet} Credits</p>
+                <p className="text-center mt-5">Balance: {Number(wallet.toFixed(1))} Credits</p>
                 <p className='text-center mt-5'>Do <b>not</b> reload the page if you have just started a game, your bet will be taken if you reload at any time after placing.</p>
                 <p className='text-center text-xl'>Balance may not update instantly, <b>do not</b> reload the page to refresh it, if you are mid-game.</p>
             </div>
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>

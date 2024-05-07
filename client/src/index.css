@@ -3,3 +3,35 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+.game-block {
+    margin: 0;
+    padding: 0;
+    width: 1.5em;
+    height: 1.5em;
+    border: 1px solid #ddd;
+  }
+  .piece-i {
+    background-color: #ec858b;
+  }
+  .piece-j {
+    background-color: #f1b598;
+  }
+  .piece-l {
+    background-color: #f8efae;
+  }
+  .piece-o {
+    background-color: #b5a677;
+  }
+  .piece-s {
+    background-color: #816e56;
+  }
+  .piece-t {
+    background-color: #b77c72;
+  }
+  .piece-z {
+    background-color: #e3be58;
+  }
+  .piece-preview {
+    background-color: #eee;
+  }

@@ -71,15 +71,15 @@ const AppPage = ({ user }) => {
                         Earn / Gamble Credits
                     </p>
                     <p className=" ml-auto text-2xl mt-[5rem]">
-                        {balance === null ? '...' : balance} Credits
+                        {balance === null ? '...' : Number(balance.toFixed(1))} Credits
                     </p>
                 </div>
                 <div class="flex items-center justify-start">
                     <button onClick={() => window.location.pathname = '/blackjack'} class="text-xl max-w-fit px-2 py-3 font-semibold bg-zinc-900 rounded-lg text-white p-2 border-[4px] border-zinc-900 hover:bg-transparent hover:text-zinc-900 duration-200">
                         Blackjack
                     </button>
-                    <button onClick={() => window.location.pathname = '/'} className="ml-2 text-xl max-w-fit px-2 py-3 font-semibold bg-zinc-900 rounded-lg text-white p-2 border-[4px] border-zinc-900 hover:bg-transparent hover:text-zinc-900 duration-200">
-                        Messenger Minigame
+                    <button onClick={() => window.location.pathname = '/tetris'} className="ml-2 text-xl max-w-fit px-2 py-3 font-semibold bg-zinc-900 rounded-lg text-white p-2 border-[4px] border-zinc-900 hover:bg-transparent hover:text-zinc-900 duration-200">
+                        Tetris
                     </button>
                 </div>
 
@@ -100,7 +100,7 @@ const AppPage = ({ user }) => {
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>

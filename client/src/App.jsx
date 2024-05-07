@@ -11,11 +11,12 @@ import BookForm from './pages/admin/admin_form';
 import AdminBookForm from './pages/admin/admin_form';
 import AdminOverview from './pages/admin/admin_dashboard';
 import io from 'socket.io-client';
-import BlackjackGame from './pages/auth/blackjack';
+import BlackjackGame from './pages/auth/games/blackjack';
 import StorePage from './pages/unauth/storePage';
 import { Toaster } from 'react-hot-toast';
 import BookReader from './pages/auth/ereader';
 import AcceptableUsePolicy from './pages/unauth/acceptableUse';
+import TetrisGame from './pages/auth/games/tetris';
 
 function App() {
   const [user, setUser] = React.useState('loading')
@@ -66,6 +67,11 @@ function App() {
     {
       path: '/blackjack',
       element: <BlackjackGame user={user} socket={socket} />,  // Pass the socket to the Blackjack game
+      errorElement: <ErrorPage />
+    },
+    {
+      path: '/tetris',
+      element: <TetrisGame user={user} socket={socket} />,  // Pass the socket to the Tetris game
       errorElement: <ErrorPage />
     },
     {

@@ -52,9 +52,9 @@ function setupBlackjackGame(io) {
     io.on('connection', (socket) => {
         const userId = socket.handshake.session.passport?.user;
 
-        socket.on('start-game', async ({ bet }) => {
+        socket.on('bj-start-game', async ({ bet }) => {
             if (bet > 5) {
-                socket.emit('error', 'Maximum bet is 5 credits');
+                socket.emit('bj-error', 'Maximum bet is 5 credits');
                 return;
             }
 
@@ -96,7 +96,7 @@ function setupBlackjackGame(io) {
                 }
             })
 
-            socket.emit('game-started', {
+            socket.emit('bj-game-started', {
                 gameId: newGame.id,
                 playerCards,
                 dealerCards: [dealerCards[0]],
@@ -105,13 +105,13 @@ function setupBlackjackGame(io) {
             });
         });
 
-        socket.on('player-action', async ({ action }) => {
+        socket.on('bj-player-action', async ({ action }) => {
 
             const game = await prisma.blackjackGame.findFirst({
                 where: { userId, isActive: true }
             });
 
-            if (!game || game.gameOver) return socket.emit('error', { status: 'Game not found or already over' });
+            if (!game || game.gameOver) return socket.emit('bj-error', { status: 'Game not found or already over' });
 
             let deck = game.deck;
 
@@ -131,9 +131,9 @@ function setupBlackjackGame(io) {
                 });
 
                 if (newTotal > 21) {
-                    socket.emit('game-ended-plr', { status: 'Bust!', playerCards: updatedCards, playerTotal: newTotal });
+                    socket.emit('bj-game-ended-plr', { status: 'Bust!', playerCards: updatedCards, playerTotal: newTotal });
                 } else {
-                    socket.emit('game-updated', { playerCards: updatedCards, playerTotal: newTotal });
+                    socket.emit('bj-game-updated', { playerCards: updatedCards, playerTotal: newTotal });
                 }
             } else if (action === 'stand') {
                 const { dealerCards, dealerTotal } = dealerPlays(deck, JSON.parse(game.dealerCards));
@@ -180,7 +180,7 @@ function setupBlackjackGame(io) {
                     })
                 }
 
-                socket.emit('game-ended', { status, dealerCards, dealerTotal, playerTotal: finalPlayerTotal });
+                socket.emit('bj-game-ended', { status, dealerCards, dealerTotal, playerTotal: finalPlayerTotal });
                 await prisma.blackjackGame.deleteMany({
                     where: {
                         userId

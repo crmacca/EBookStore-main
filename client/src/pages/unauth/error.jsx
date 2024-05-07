@@ -34,7 +34,7 @@ const ErrorPage = () => {
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>

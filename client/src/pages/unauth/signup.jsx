@@ -88,9 +88,9 @@ const SignupPage = ({ user }) => {
 
     return (
         <div className="bg-orange-50 w-full min-h-screen">
-            <div className="max-w-7xl m-auto h-screen p-20 flex flex-col">
+            <div className="max-w-7xl m-auto min-h-screen p-20 flex flex-col">
                 <div className="flex items-center justify-start gap-2">
-                    <img alt='CornerOfBooks Logo' src='/logoSM.png' className="w-40"/>
+                    <img alt='CornerOfBooks Logo' src='/logoSM.png' className="w-40 hidden md:block"/>
                     <div>
                         <h1 className='text-zinc-900 font-merriweather text-7xl font-bold'>
                             E-Book
@@ -146,7 +146,7 @@ const SignupPage = ({ user }) => {
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>

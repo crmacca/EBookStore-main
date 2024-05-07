@@ -44,7 +44,7 @@ const AcceptableUsePolicy = () => {
                 <p>ChrisMCDevelopments reserves the right to modify this Acceptable Use Policy at any time. We will notify users of significant changes and indicate the date of the latest revision. Your continued use of CornerOfBooks after changes to this policy will constitute your acceptance of such changes.</p>
                 <br/>
                 <h2><b>5. Contact Us</b></h2>
-                <p>If you have any questions about this Acceptable Use Policy, please contact us at <strong>[Your Contact Information]</strong>.</p>
+                <p>If you have any questions about this Acceptable Use Policy, please contact us at <strong>chris@cmcdev.net</strong>.</p>
                 <br/>
                 <p><strong>Last Updated: 2nd May 2024</strong></p>
 
@@ -54,7 +54,7 @@ const AcceptableUsePolicy = () => {
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>

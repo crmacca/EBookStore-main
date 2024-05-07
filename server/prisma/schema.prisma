@@ -11,16 +11,17 @@ model User {
   id           String     @id @default(uuid())
   username     String     @unique
   passwordHash String
-  credits      Float      @default(0)
+  credits      Float      @default(5)
   admin        Boolean    @default(false)
   purchases    Purchase[]
   blackjackGames BlackjackGame[]
+  tetrisGames TetrisGame[]
 }
 
 model Book {
   id          String     @id @default(uuid())
   title       String
-  description String @db.VarChar(500)
+  description String @db.VarChar(1000)
   price       Float
   purchases   Purchase[]
   imageUrl    String
@@ -38,6 +39,16 @@ model Purchase {
 
   @@unique([userId, bookId])
   @@index([bookId], map: "Purchase_book_id_fkey")
+}
+
+model TetrisGame {
+  id           String    @id @default(uuid())
+  score        Int @default(0 )
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
 }
 
 model BlackjackGame {

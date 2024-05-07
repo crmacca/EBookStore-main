@@ -68,9 +68,9 @@ const StorePage = ({ user }) => {
 
     return (
         <div className="bg-orange-50 w-full min-h-screen font-merriweather">
-            <div className="max-w-7xl m-auto h-screen p-20 flex flex-col">
+            <div className="max-w-7xl m-auto min-h-screen p-20 flex flex-col">
                 <div className="flex items-center justify-start gap-2">
-                    <img alt='CornerOfBooks Logo' src='/logoSM.png' className="w-40"/>
+                    <img alt='CornerOfBooks Logo' src='/logoSM.png' className="w-40 hidden md:block"/>
                     <div>
                         <h1 className='text-zinc-900 font-merriweather text-7xl font-bold'>
                             E-Book
@@ -80,7 +80,7 @@ const StorePage = ({ user }) => {
                         </h1>
                     </div>
                     <div className="ml-auto flex items-center gap-2 h-full font-merriweather text-2xl font-bold">
-                        <div className="flex flex-col items-start justify-center mr-2">
+                        <div className="flex-col items-start justify-center mr-2 hidden md:flex">
                             <p className="font-bold text-md leading-none">
                                 Balance
                             </p>
@@ -107,7 +107,7 @@ const StorePage = ({ user }) => {
                                 <h1 className="text-xl font-light mt-3">{bookData.description}</h1>
 
                                 <p className="mt-5">
-                                    Current Balance: {credits} Credits
+                                    Current Balance: {Number(credits.toFixed(1))} Credits
                                 </p>
 
                                 {
@@ -137,7 +137,7 @@ const StorePage = ({ user }) => {
             <div className="fixed bottom-0 left-0 w-full flex items-center justify-center py-2">
                 <h1>
                 (For legal reasons) This entire site is a joke. | ©{" "}
-                {new Date().getFullYear()} ChrisMC Developments| <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
+                {new Date().getFullYear()} ChrisMC Developments | <a className='underline cursor-pointer' onClick={() => {window.location.pathname = '/policies/use'}}>Acceptable Use Policy</a>
                 </h1>
             </div>
         </div>
