@@ -1,7 +1,8 @@
 module.exports = {
     webserver: {
         originsAllows: [
-            'localhost'
+            'localhost',
+            'ebook.cmcdev.net'
         ]
     }
 }
